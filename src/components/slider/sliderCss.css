@@ -1,0 +1,23 @@
+.slick-next:before, 
+.slick-prev:before {
+    color: #5970FF;
+    font-size:30px;
+}
+.slick-dots li button:before {
+    color:#000;
+    font-size:15px;
+}
+.slick-dots li.slick-active button:before {
+    color: #5970FF;
+}
+.slick-next:before {
+    position:relative;
+    left:4px;
+}
+.slick-prev:before {
+    position:relative;
+    left:-20px;
+}
+.slick-slide {
+    margin-right:30px;
+}
