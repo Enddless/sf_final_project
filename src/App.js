@@ -34,7 +34,7 @@ function App() {
     } else {
       console.log("Нужно авторизоваться")
     }
-  }, [initToken, initExpire])
+  }, [initToken || initExpire])
 
   return (
     <BrowserRouter>
@@ -52,6 +52,7 @@ function App() {
           newToken={newToken} setToken={setToken} 
           newExpire={newExpire} setExpire={setExpire}
           isLogged={isLogged}
+          initToken={initToken}
         />
         <Footer/>
       </div>
