@@ -27,7 +27,7 @@ function App() {
       console.log("Срок действия токена =" + date.getTime())
       if ((currentDate.getTime() - date.getTime()) <= 0) {
         console.log("Токен еще действует, логинюсь")
-        setIsLogged (true)
+        setIsLogged (!isLogged)
         setToken(newToken) // !=null
         setExpire(newExpire) // !=null 
       } 

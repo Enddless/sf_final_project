@@ -73,6 +73,7 @@
 .blockRight .checkbox {
     display:none;
 }
+
 .blockRight .fake{
     display: inline-flex;
     justify-content: center;
@@ -85,7 +86,7 @@
     align-items: center;   
 }
 .fake {
-    border: 1px solid #000000;
+    border: 1px solid #D9D9D9;
     width: 20px;
     height: 20px; 
     border-radius: 1px; 
@@ -101,10 +102,13 @@
 .signs span{
     font-size: 18px;
     line-height: 22px;
-    color:#000000;
+    color:#D9D9D9;
     text-decoration-line: none;
     opacity: 1;
     -moz-text-decoration-line: none;
+}
+.checkboxActive {
+    color:#000000 !important;
 }
 .btn__inactive {
     width: 305px;

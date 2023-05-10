@@ -8,7 +8,7 @@ import HeaderUser from './header_user'
 import { Link } from 'react-router-dom'
 
 const Header = (props) => {
-  const {isLogged} = props
+  const {isLogged, initToken} = props
   const [isBurgerVisible, setBurgerVisible] = useState(false)
 
   const showBurger = ()=> {
@@ -34,7 +34,7 @@ const Header = (props) => {
         </ul>
       </div>
       
-      {<HeaderUser isLogged={isLogged}/>}
+      {<HeaderUser isLogged={isLogged} initToken={initToken}/>}
 
       <div className={css.burger} onClick={showBurger}>
             <div className={css.burger_line}></div>
