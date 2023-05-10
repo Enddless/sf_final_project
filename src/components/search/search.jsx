@@ -94,7 +94,6 @@ const Search = (props) => {
     }).then(response => {
       const rezult = response.data
       console.log("Данные по общей сводке = " + rezult)
-    //   navigate('/rezult'); // автоматический переход на роутер
     })
     .catch(error => {
           console.log('Ошибка выгрузки сводки', error.response);
@@ -123,7 +122,8 @@ const Search = (props) => {
                         <label htmlFor="ton">Тональность <sup>*</sup></label>
                             <select 
                                 id="tonality" 
-                                value={tonality}
+                                defaultValue={tonality}
+
                                 onChange={(event) => setTonality (event.target.value)}
                             >
                                 <option value="Позитивная">Позитивная</option>
