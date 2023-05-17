@@ -17,7 +17,6 @@ const AutorizationPage = (props) => {
   const {isLogged} = props
 
   const [username, setUsername] = useState("")
-  console.log("username = " + username)
   const [userpassword, setUserpassword] = useState('')
   const {store} = useContext(Context)
 
