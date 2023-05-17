@@ -11,7 +11,7 @@ import  { useState, useEffect} from 'react'
 function App() {
   
 
-  const [isLogged, setIsLogged] = useState(false);
+  // const [isLogged, setIsLogged] = useState(true);
 
   //беру из ЛС данные токена либо создаю пустой массив
   const initToken = JSON.parse(window.localStorage.getItem('accesstoken')) 
@@ -19,28 +19,28 @@ function App() {
   const [newToken, setToken] = useState(initToken); 
   const [newExpire, setExpire] = useState(initExpire); 
 
-  useEffect( () => {
-    if (initToken && initExpire) {  
-      const currentDate = new Date();
-      const date = new Date(newExpire);
-      console.log("Текущая дата =" + currentDate.getTime())
-      console.log("Срок действия токена =" + date.getTime())
-      if ((currentDate.getTime() - date.getTime()) <= 0) {
-        console.log("Токен еще действует, логинюсь")
-        setIsLogged (!isLogged)
-        setToken(newToken) // !=null
-        setExpire(newExpire) // !=null 
-      } 
-    } else {
-      console.log("Нужно авторизоваться")
-    }
-  }, [initToken || initExpire])
+  // useEffect( () => {
+  //   if (initToken && initExpire) {  
+  //     const currentDate = new Date();
+  //     const date = new Date(newExpire);
+  //     console.log("Текущая дата =" + currentDate.getTime())
+  //     console.log("Срок действия токена =" + date.getTime())
+  //     if ((currentDate.getTime() - date.getTime()) <= 0) {
+  //       console.log("Токен еще действует, логинюсь")
+  //       setIsLogged (!isLogged)
+  //       setToken(newToken) // !=null
+  //       setExpire(newExpire) // !=null 
+  //     } 
+  //   } else {
+  //     console.log("Нужно авторизоваться")
+  //   }
+  // }, [initToken || initExpire])
 
   return (
     <BrowserRouter>
       <div className={css.wrapper}>
         <Header 
-          isLogged={isLogged}
+          
           initToken={initToken} 
           initExpire={initExpire}
           newToken={newToken}
@@ -51,7 +51,7 @@ function App() {
           // onTokenChange={handleTokenChange} 
           newToken={newToken} setToken={setToken} 
           newExpire={newExpire} setExpire={setExpire}
-          isLogged={isLogged}
+          
           initToken={initToken}
         />
         <Footer/>

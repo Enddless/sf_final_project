@@ -4,31 +4,29 @@ import lock from '../authorization/Lock.png'
 import google from '../authorization/google.png'
 import facebook from '../authorization/facebook.png'
 import ya from '../authorization/ya.png'
-import React from 'react'
+import React, { useContext } from 'react'
 import  { useState} from 'react'
 
 import { useNavigate  } from 'react-router-dom'
-import { instance } from '../../utils/axios'
-
+import instance from '../../utils/axios'
+import { Context } from '../..'
 
 
 
 const AutorizationPage = (props) => {
   const {isLogged} = props
 
-  // const [isDisabled, setIsDisabled] = useState(false)
+  const [username, setUsername] = useState("")
+  console.log("username = " + username)
+  const [userpassword, setUserpassword] = useState('')
+  const {store} = useContext(Context)
+
   const [isActiveTabEnter, setIsActiveTabEnter] = useState(true)
   const [isActiveTabReg, setIsActiveTabReg] = useState(false)
 
-  const [username, setUsername] = useState('')
-  const [userpassword, setUserpassword] = useState('')
+  
   const navigate = useNavigate();
   const url = "v1/account/login"
-
-
-  // if (username && userpassword) {
-  //   setIsDisabled(!isDisabled)
-  // }
 
   const authResponse  = (event) => {
     event.preventDefault()
@@ -74,7 +72,7 @@ const AutorizationPage = (props) => {
           </div>
           <div className={css.form}>
             <img src={lock} className={css.lock} alt="Lock"></img>
-            <form className={css.autorizationForm} onSubmit={authResponse }>
+            <form className={css.autorizationForm} onSubmit={() => store.login(username, userpassword)}>
                 <div className={css.tab}>
                     <p 
                       onClick={handleActiveTab} 
@@ -97,8 +95,7 @@ const AutorizationPage = (props) => {
                     id="login" 
                     name="login" 
                     value={username} 
-                    onChange={(event) => setUsername (event.target.value)
-                      }
+                    onChange={(event) => setUsername (event.target.value)}
                     required>
                 </input>
 

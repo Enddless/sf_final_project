@@ -5,7 +5,8 @@ import window from '../search/window.png'
 // import arrow from '../search/arrowBottom.png'
 
 import  { useState} from 'react'
-import { instance } from '../../utils/axios'
+import instance from '../../utils/axios'
+import validateInn from '../../utils/functions/validateInn'
 
 const Search = (props) => {
   const {initToken} = props
@@ -14,7 +15,8 @@ const Search = (props) => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [inn, setInn] = useState('')
-  const [tonality, setTonality] = useState("Любая")
+  const [error, setError] = useState('')
+  const [tonality, setTonality] = useState("")
   const [quantity, setQuantity] = useState('')
 
   const [maxFullness, setCheckboxOne] = useState(true)
@@ -52,7 +54,7 @@ const Search = (props) => {
                         }
                     ],
                     "onlyMainRole": onlyMainRole, //главная роль в публикации
-                    "tonality": tonality,
+                    "tonality": "tonality",
                     "onlyWithRiskFactors": onlyWithRiskFactor, //только риск-факторы
                     "riskFactors": { //риск-факторы
                         "and": [],
@@ -117,18 +119,24 @@ const Search = (props) => {
                             name="inn" 
                             placeholder='10 цифр' 
                             value={inn}
-                            onChange={(event) => setInn (event.target.value)}></input>
+                            onChange={(event) => 
+                                {setInn (event.target.value)
+                                validateInn(inn)
+                                console.log(event.target.value)}  
+                            }
+                            // onChange={(inn) => validateInn(inn, error)
+                            ></input>
+                            <p className={css.validateError}>{error}</p>
 
                         <label htmlFor="ton">Тональность <sup>*</sup></label>
                             <select 
                                 id="tonality" 
-                                defaultValue={tonality}
-
-                                onChange={(event) => setTonality (event.target.value)}
+                                value={tonality}
+                                onChange={(event) => setTonality (event.target.value)}   
                             >
                                 <option value="Позитивная">Позитивная</option>
                                 <option value="Негативная">Негативная</option>
-                                <option value="Любая">Любая</option>
+                                <option value="Any">Любая</option>
                             </select>
                         
                         <label htmlFor="numberDocument">Количество документов в выдаче <sup>*</sup></label>

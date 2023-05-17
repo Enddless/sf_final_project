@@ -11,34 +11,34 @@ const HeaderUser = (props) => {
     //проверяем пользователя, если зареган, то показываем полные данные
     const [usedCompanyCount, setUsedCompanyCount] = useState(0);
     const [companyLimit, setCompanyLimit] = useState(0);
-    useEffect( () => {
-        axios({
-            method: 'get',
-            credentials: true,
-            url: "https://gateway.scan-interfax.ru/api/v1/account/info",
-            // data: {
-            //   login: username,
-            //   password: userpassword
-            // },
-            responseType: "json",
-            headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${initToken}` 
+    // useEffect( () => {
+    //     axios({
+    //         method: 'get',
+    //         credentials: true,
+    //         url: "https://gateway.scan-interfax.ru/api/v1/account/info",
+    //         // data: {
+    //         //   login: username,
+    //         //   password: userpassword
+    //         // },
+    //         responseType: "json",
+    //         headers: {
+    //               'Accept': 'application/json',
+    //               'Content-Type': 'application/json',
+    //               'Authorization': `Bearer ${initToken}` 
                  
-            } 
-        }).then(response => {
-            const rezult = response.data.eventFiltersInfo
-            // console.log("rezult =" ,response.data)
-            // return rezult
-            setUsedCompanyCount(rezult.usedCompanyCount)
-            setCompanyLimit(rezult.companyLimit)
-            // console.log(rezult.eventFiltersInfo.usedCompanyCount)
-          })
-          .catch(error => {
-                console.log('Ошибка:', error.response);
-          });
-    }, [initToken]);
+    //         } 
+    //     }).then(response => {
+    //         const rezult = response.data.eventFiltersInfo
+    //         // console.log("rezult =" ,response.data)
+    //         // return rezult
+    //         setUsedCompanyCount(rezult.usedCompanyCount)
+    //         setCompanyLimit(rezult.companyLimit)
+    //         // console.log(rezult.eventFiltersInfo.usedCompanyCount)
+    //       })
+    //       .catch(error => {
+    //             console.log('Ошибка:', error.response);
+    //       });
+    // }, [initToken]);
 
     return (
         <>
