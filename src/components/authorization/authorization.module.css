@@ -55,13 +55,17 @@
     border-bottom:1px solid #029491;
     color:#029491;
 }
-.btn__inactive {
+.btn__inactive,
+.btn__disabled {
     width: 379px;
     height: 59px;
     left: 895px;
     top: 460px;
-    opacity:0.5;
     margin:30px 0 15px;
+}
+.btn__disabled {  
+    opacity:0.5;
+    cursor:not-allowed;
 }
 .resetPas {
     font-size: 14px;
@@ -91,6 +95,18 @@
     margin-right: 10px;
     display: table-cell;
     text-align: center;
+}
+.errorBorder {
+    border:1px solid red;  
+}
+.errorMessage {
+    position:absolute;
+
+    left:25%;
+    color:red;
+    font-size:12px;
+    width:90%;
+    
 }
 
 @media screen and (max-width: 375px) {

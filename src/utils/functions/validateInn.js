@@ -1,5 +1,5 @@
 
-function validateInn(inn) {
+function ValidateInn(inn) {
     let error = {
         code: null,
         message: null
@@ -34,22 +34,25 @@ function validateInn(inn) {
 			case 10:
 				var n10 = checkDigit(inn, [2, 4, 10, 3, 5, 9, 4, 6, 8]);
 				if (n10 === parseInt(inn[9])) {
-					result = true;
+					result = true
+					return true;
 				}
 				break;
 			case 12:
 				var n11 = checkDigit(inn, [7, 2, 4, 10, 3, 5, 9, 4, 6, 8]);
 				var n12 = checkDigit(inn, [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8]);
 				if ((n11 === parseInt(inn[10])) && (n12 === parseInt(inn[11]))) {
-					result = true;
+					result = true
+					return true;
 				}
 				break;
 		}
 		if (!result) {
 			error.code = 4;
 			error.message = 'Неправильное контрольное число';
+			return false;
 		}
 	}
 	console.log("Error = " + error.message)
 }
-    export default validateInn;
+    export default ValidateInn;

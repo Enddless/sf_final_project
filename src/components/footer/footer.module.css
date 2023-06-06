@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     color:#ffffff;
+    user-select: none;
 }
 .logo {
     display:flex;
@@ -20,10 +21,18 @@
     text-align:right;
     cursor:pointer;
 }
+.footer__item a, 
+.footer__item a:link,
+.footer__item a:active, 
+.footer__item a:visited  {
+  text-decoration:none;
+  color:white;
+}
 
 @media screen and (max-width: 375px) {
     .footer {
-        width: 375px;
+        width: 374px;
+        box-sizing: border-box;
         padding:0 5px;
         justify-content: left;
     }

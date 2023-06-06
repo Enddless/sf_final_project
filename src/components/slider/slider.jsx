@@ -14,7 +14,9 @@ import  '../slider/sliderCss.css'
 const SliderComponent = (props) => {
     const settings = {
         dots: true,
-        infinite: true,
+        arrows: false,
+        infinite: false,
+        variableWidth: false,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,

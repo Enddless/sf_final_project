@@ -1,21 +1,97 @@
-import css from './rezult.module.css'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 import apple from './apple.png'
-import rezultImage from './rezult1.png'
+import css from '../rezult/rezult.module.css'
+import '../slider/sliderCssRezult.css'
+import Loader from "../loader/loader"
+import { useState, useEffect } from 'react'
+
 
 const Rezult = (props) => {
-  
+  // const { rezult } = props
+  const [rezult, setRezult] = useState(JSON.parse(localStorage.getItem('searchData')))
+  // console.log("rezult = ", rezult)
+
+  //**********LOADER**********
+  const [loader, setLoader] = useState(false)
+  useEffect(() => {
+    setLoader(true)
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000);
+
+  }, [])
+
+  //**********ПЕРЕБОР ДАННЫХ ПО СВОДКЕ**********
+
+  const twoArray = (Object.values(rezult).map((value) => value.map((item) => item.data)))
+  const totalDocuments = (Object.values(twoArray).map((value) => value[0])).map((item) => item)
+  const riskFactors = Object.values(twoArray).map((value) => value[1]).map((item) => item.map((name) => name.value))
+  const [tableData, settableData] = useState(() => {
+    const storedtableData = localStorage.getItem('tableData');
+    return storedtableData ? JSON.parse(storedtableData) : totalDocuments.map((item) => item.map((value, index) => {
+      return { date: value.date, totalDoc: value.value, riskDoc: Object.values(riskFactors)[0][index] }
+    }))
+  });
+
+
+
+  //**********СОХРАНЕНИЕ КЛЮЧЕЙ ПОИСКА**********
+  useEffect(() => {
+    localStorage.setItem('tableData', JSON.stringify(tableData));
+  }, [tableData]);
+  //**********НАСТРОЙКИ ДЛЯ СЛАЙДЕРА**********
+  const settings = {
+    dots: false,
+    infinite: false,
+    // variableWidth: true,
+    speed: 500,
+    slidesToShow: 9,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 9,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
   return (
     <div className={css.publications}>
       <div className={css.info}>
-          <h1>Ищем. Скоро будут результаты</h1>
-          <p>Поиск может занять некоторое время, 
-            просим сохранять терпение.
-          </p>
-          <img src={apple} alt="apple"></img>
+        <h1>{!tableData ? "Ищем. Скоро будут результаты" : "Мы нашли для вас подходящие варианты"}</h1>
+        <p>{!tableData ? "Поиск может занять некоторое время,просим сохранять терпение." : "Спасибо за терпение. Теперь вы можете посмотреть результаты"}
+        </p>
+        <img src={apple} alt="apple"></img>
       </div>
       <div className={css.bulletin}>
         <h3>Общая сводка</h3>
-        <span>Найдено 4 221 вариантов</span>
+        <span>Найдено {tableData.map((item) => item.length)} вариантов</span>
+
         <div className={css.table}>
           <div className={`${css.table__item} ${css.table__head}`}>
             <div className={css.item}>
@@ -24,74 +100,34 @@ const Rezult = (props) => {
               <p>Риски</p>
             </div>
           </div>
-          <div className={css.table__item}>
-            <div className={css.item}>
-              <p>10.09.2021</p>
-              <p>5</p>
-              <p>0</p>
-            </div>
-          </div>
-          <div className={css.table__item}>
-            <div className={css.item}>
-              <p>11.09.2021</p>
-              <p>9</p>
-              <p>9</p>
-            </div>
-          </div>
+
+          {loader ? (<Loader />) : (
+            <Slider {...settings} className={css.sliderTwo}>
+              {Object.values(tableData).map((value) => value.map((item) => {
+                const stringDate = item.date
+                const date = new Date(stringDate)
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const day = (date.getDate()).toString().padStart(2, '0');
+                const newDate = `${day}.${month}.${date.getFullYear()}`
+                return (
+                  <div className={`${css.table__item} `}>
+                    <div className={css.item}>
+                      <p>{newDate}</p>
+                      <p>{item.totalDoc}</p>
+                      <p>{item.riskDoc}</p>
+                    </div>
+                  </div>
+                )
+              }))}
+            </Slider>
+          )}
+
         </div>
-        <h3>Список документов</h3>
-        <div className={css.documentation}>
-          <div className={css.card}>
-            <p className={css.dataPublication}>13.09.2021 <span>Комсомольская правда KP.RU</span></p>
-            <p className={css.title}>Скиллфэктори - лучшая онлайн-школа для будущих айтишников</p>
-            <button className={css.btnNews}>Технические новости</button>
-            <img src={rezultImage} alt="rezultImage"></img>
-            <p className={css.text}>SkillFactory — школа для всех, кто хочет изменить свою карьеру 
-              и жизнь. С 2016 года обучение прошли 20 000+ человек из 40 стран 
-              с 4 континентов, самому взрослому студенту сейчас 86 лет. 
-              Выпускники работают в Сбере, Cisco, Bayer, Nvidia, МТС, 
-              Ростелекоме, Mail.ru, Яндексе, Ozon и других топовых компаниях.</p>
-            <p className={css.text}>Принципы SkillFactory: акцент на практике, забота о студентах 
-              и ориентир на трудоустройство. 80% обучения — выполнение 
-              упражнений и реальных проектов. Каждого студента поддерживают менторы, 
-              2 саппорт-линии и комьюнити курса. А карьерный центр помогает составить 
-              резюме, подготовиться к собеседованиям и познакомиться с IT-рекрутерами.
-            </p>
-            
-            <div className={css.wordsCount}>
-              <button className={css.source}>Читать в источнике</button>
-              <span >2 543 слова</span>
-            </div>
-          </div>
-          <div className={css.card}>
-            <p className={css.dataPublication}>13.09.2021 <span>Комсомольская правда KP.RU</span></p>
-            <p className={css.title}>Скиллфэктори - лучшая онлайн-школа для будущих айтишников</p>
-            <button className={css.btnNews}>Технические новости</button>
-            <img src={rezultImage} alt="rezultImage"></img>
-            <p className={css.text}>SkillFactory — школа для всех, кто хочет изменить свою карьеру 
-              и жизнь. С 2016 года обучение прошли 20 000+ человек из 40 стран 
-              с 4 континентов, самому взрослому студенту сейчас 86 лет. 
-              Выпускники работают в Сбере, Cisco, Bayer, Nvidia, МТС, 
-              Ростелекоме, Mail.ru, Яндексе, Ozon и других топовых компаниях.</p>
-            <p className={css.text}>Принципы SkillFactory: акцент на практике, забота о студентах 
-              и ориентир на трудоустройство. 80% обучения — выполнение 
-              упражнений и реальных проектов. Каждого студента поддерживают менторы, 
-              2 саппорт-линии и комьюнити курса. А карьерный центр помогает составить 
-              резюме, подготовиться к собеседованиям и познакомиться с IT-рекрутерами.
-            </p>
-            
-            <div className={css.wordsCount}>
-              <button className={css.source}>Читать в источнике</button>
-              <span >2 543 слова</span>
-            </div>
-          </div>
-          
-        </div>
-        <button className={css.more}>Показать больше</button>
+
       </div>
-      
-        
-  </div>
+
+
+    </div>
   );
 }
 

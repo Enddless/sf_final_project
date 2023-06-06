@@ -6,7 +6,11 @@ const AuthService = (event) => {
     async function login(username, userpassword){
         
         console.log("authService test login")
-        return instance.post("/account/login", {username, userpassword})
+        return instance
+            .post("/account/login", {
+                username, 
+                userpassword
+            })
         
     }
 

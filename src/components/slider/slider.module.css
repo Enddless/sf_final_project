@@ -5,10 +5,8 @@
     margin-bottom:45px;
 }
 .slider {
-    /* padding:25px 40px 70px; */
-    width:1200px;
+    width:1320px;
     height:260px;
-    margin:0 auto;
     margin-bottom:70px;
 }
 .slide {
@@ -18,7 +16,7 @@
     /* box-sizing: border-box; */
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    margin:10px 0;
+    margin:10px 15px;
 }
 .slide p {
     font-size: 18px;

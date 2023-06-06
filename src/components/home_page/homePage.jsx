@@ -11,6 +11,13 @@ import { Link } from 'react-router-dom'
 
 const HomePage = (props) => {
   const {isLogged} = props
+  // console.log("isLogged в HomePage = " + isLogged)
+  
+  // **********СБРОС ВСЕХ КЛЮЧЕЙ ПОИСКА**********
+  localStorage.removeItem('document');
+  localStorage.removeItem('tableData');
+  localStorage.removeItem('searchData');
+  localStorage.removeItem('searchDocumentsID');
   return (
         <>
         {/* блок main__header */}
@@ -42,7 +49,7 @@ const HomePage = (props) => {
         {/* <SwiperComponent/> */}
         <SliderComponent/>
          {/* блок тарифы */}
-        <Rates/>
+        <Rates isLogged={isLogged} {...props}/>
 
 
         {/* <AutorizationPage/>

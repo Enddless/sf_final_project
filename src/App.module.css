@@ -1,5 +1,5 @@
 .wrapper {
-  width:1440px;
+  /* width:1440px; */
   margin:0 auto;
 }
 .wrapper::-webkit-scrollbar-track {
@@ -12,8 +12,8 @@
 }
 
 
-@media screen and (max-width: 375px) {
+/* @media screen and (max-width: 375px) {
   .App {
     width:375px;
   }
-}
+} */
